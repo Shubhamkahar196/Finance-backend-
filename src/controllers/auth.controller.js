@@ -119,3 +119,14 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+// logout
+export const logoutUser = (req,res)=>{
+    res.cookie("toke","",{
+        httpOnly: true,
+        expires: new Date(0)
+    })
+    res.status(200).json({
+    message: "Logged out successfully"
+  });
+}
