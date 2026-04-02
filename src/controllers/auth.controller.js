@@ -8,11 +8,10 @@ import { registerSchema, loginSchema } from "../validators/auth.validator.js";
 export const registerUser = async (req, res) => {
   try {
     const parsedData = registerSchema.safeParse(req.body);
-  
 
     if (!parsedData.success) {
       return res.status(400).json({
-      message:"Validation failed"
+        message: "Validation failed",
       });
     }
 
@@ -46,7 +45,7 @@ export const registerUser = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      maxAge: 3 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(201).json({
@@ -102,7 +101,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      maxAge: 3 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
@@ -122,34 +121,32 @@ export const loginUser = async (req, res) => {
 };
 
 // logout
-export const logoutUser = (req,res)=>{
-    res.cookie("toke","",{
-        httpOnly: true,
-        expires: new Date(0)
-    })
-    res.status(200).json({
-    message: "Logged out successfully"
+export const logoutUser = (req, res) => {
+  res.cookie("toke", "", {
+    httpOnly: true,
+    expires: new Date(0),
   });
-}
-
+  res.status(200).json({
+    message: "Logged out successfully",
+  });
+};
 
 // get current user
 
-export const getMe = async(req,res)=>{
-    try {
-        const user = await User.findById(req.user.id).select("-password");
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
 
-        if(!user){
-             return res.status(404).json({
-        message: "User not found"
-      }); 
-        }
-
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
 
     res.status(200).json({ user });
-    } catch (error) {
-        res.status(500).json({
-      message: "Server Error"
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
     });
-    }
-}
+  }
+};

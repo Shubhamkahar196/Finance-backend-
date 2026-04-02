@@ -6,7 +6,7 @@ import { recordSchema } from "../validators/record.validator.js";
 export const createRecord = async (req, res) => {
   try {
     const parsedData = recordSchema.safeParse(req.body);
-
+    console.log("parsed",parsedData);
     if (!parsedData.success) {
       return res.status(400).json({
         message: "Validation failed",
@@ -31,9 +31,9 @@ export const createRecord = async (req, res) => {
   }
 };
 
-// filtering record
+// getRecords with filter
 
-export const filterRecords = async (req, res) => {
+export const getRecords = async (req, res) => {
   try {
     const { type, category, startDate, endDate } = req.query;
     const filter = { isDeleted: false };
@@ -84,7 +84,7 @@ export const getSingleRecord = async(req,res)=>{
 export const updateRecord = async (req, res) => {
   try {
     const parsedData = recordSchema.safeParse(req.body);
-
+  
     if (!parsedData.success) {
       return res.status(400).json({
         message: "Validation failed",
