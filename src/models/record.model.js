@@ -10,7 +10,10 @@ const recordSchema = mongoose.Schema({
         type:String,
         enum:["income",'expense'],
     },
-    category: string,
+    category: {
+        type:String,
+
+    },
     date: {
         type: Date,
         default: Date.now,
