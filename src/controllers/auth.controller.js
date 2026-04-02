@@ -8,10 +8,11 @@ import { registerSchema, loginSchema } from "../validators/auth.validator.js";
 export const registerUser = async (req, res) => {
   try {
     const parsedData = registerSchema.safeParse(req.body);
+  
 
     if (!parsedData.success) {
       return res.status(400).json({
-        message: "Validation failed",
+      message:"Validation failed"
       });
     }
 
