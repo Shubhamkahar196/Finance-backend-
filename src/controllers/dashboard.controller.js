@@ -2,7 +2,7 @@ import Record from "../models/record.model.js";
 
 // getsummary( income,expense,balance)
 
-export const getsummary = async (req, res) => {
+export const getSummary = async (req, res) => {
   try {
     const income = await Record.aggregate([
       { $match: { type: "income", isDeleted: false } },

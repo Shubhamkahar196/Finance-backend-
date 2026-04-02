@@ -3,7 +3,9 @@ import jwt, { decode } from 'jsonwebtoken';
 
 export const protect = (req,res,next)=>{
     try {
-        const token = req.cookie.token;
+        const token = req.cookies.token;
+        console.log("Token:", token);
+
 
         if(!token){
 return res.status(401).json({
@@ -13,6 +15,7 @@ return res.status(401).json({
 
 // verify token
 const decoded = jwt.verify(token,process.env.JWT_SECRET);
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
 // attach user info to request
 req.user = decoded;  //{id , role}
