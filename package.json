@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed:admin": "node scripts/seedAdmin.js",
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
