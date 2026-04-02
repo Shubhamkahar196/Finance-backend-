@@ -1,12 +1,12 @@
-# Finance Data Processing and Access Control Backend
+#  Finance Data Processing and Access Control Backend
 
 ##  Overview
 
 This project is a backend system for a finance dashboard that manages financial records, users, roles, and access control.
 
-It is designed to demonstrate backend architecture, API design, role-based access control, and data processing using a clean and maintainable approach.
+It demonstrates backend architecture, API design, role-based access control (RBAC), and data processing using a clean and maintainable approach.
 
-
+---
 
 ##  Tech Stack
 
@@ -16,9 +16,58 @@ It is designed to demonstrate backend architecture, API design, role-based acces
 * Mongoose
 * Zod (Validation)
 * JWT (Authentication)
-* Cookie-based authentication
+* Cookie-based Authentication
+* Docker
 
+---
 
+##  Project Structure
+
+```
+Finance-Backend/
+│
+├── src/
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── user.controller.js
+│   │   ├── record.controller.js
+│   │   └── dashboard.controller.js
+│   │
+│   ├── models/
+│   │   ├── user.model.js
+│   │   └── record.model.js
+│   │
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── user.routes.js
+│   │   ├── record.routes.js
+│   │   └── dashboard.routes.js
+│   │
+│   ├── middlewares/
+│   │   ├── auth.middleware.js
+│   │   └── role.middleware.js
+│   │
+│   ├── validators/
+│   │   ├── auth.validator.js
+│   │   └── record.validator.js
+│   │
+│   ├── config/
+│   │   └── db.js
+│   │
+│   └── utils/
+│   │   └── generateToken.js
+│    ├── index.js
+│
+├── scripts/
+│   └── seedAdmin.js
+│
+├── Dockerfile
+├── .dockerignore
+├── package.json
+└── README.md
+```
+
+---
 
 ##  Authentication & Authorization
 
@@ -29,20 +78,22 @@ It is designed to demonstrate backend architecture, API design, role-based acces
 
 ### Authorization (RBAC)
 
-The system supports three roles:
+#### Roles:
 
 * **Viewer**
 
   * Can view records
+
 * **Analyst**
 
   * Can view records
   * Can access dashboard analytics
+
 * **Admin**
 
   * Full access (CRUD + user management)
 
-
+---
 
 ##  User Management
 
@@ -51,7 +102,7 @@ The system supports three roles:
 * Update user role (admin only)
 * Activate / deactivate user
 
-
+---
 
 ##  Financial Records
 
@@ -63,24 +114,24 @@ Each record contains:
 * Date
 * Notes
 
-### Features:
+### Features
 
 * Create record (Admin only)
 * Get all records (with filtering)
 * Update record (Admin only)
 * Delete record (Soft delete)
 
-### Filtering:
+### Filtering
 
 * By type
 * By category
 * By date range
 
-
+---
 
 ##  Dashboard APIs
 
-Provides aggregated data for dashboard:
+Provides aggregated data:
 
 * Total income
 * Total expense
@@ -89,7 +140,7 @@ Provides aggregated data for dashboard:
 * Recent transactions
 * Monthly trends
 
-
+---
 
 ##  Access Control Logic
 
@@ -99,55 +150,92 @@ Provides aggregated data for dashboard:
 * Analysts can access analytics
 * Viewers have limited access
 
+---
 
+## ✅ Validation & Error Handling
 
-##  Validation & Error Handling
+* Zod is used for validation
+* Proper error responses
+* Handles invalid inputs gracefully
 
-* Zod is used for input validation
-* Proper error responses are returned
-* Invalid inputs are handled gracefully
+---
 
+## 💾 Data Persistence
 
+* MongoDB database
+* Mongoose ODM
 
-##  Data Persistence
+---
 
-* MongoDB is used as the database
-* Mongoose is used for schema modeling
+## ⚙️ Setup Instructions
 
+###  Clone Repository
 
+```
+git clone https://github.com/Shubhamkahar196/Finance-backend-.git
+cd Finance-backend-
+```
 
-##  Setup Instructions
+---
 
-1. Clone the repository
-  ``` 
-  https://github.com/Shubhamkahar196/Finance-backend-.git
-  ```
-2. Install dependencies
+###  Install Dependencies
 
 ```
 npm install
 ```
 
-3. Create `.env` file
+---
+
+###  Create `.env` File
 
 ```
 PORT=8000
 MONGODB_URI=your_mongodb_url
 JWT_SECRET=your_secret
-ADMIN_EMAIL=
-ADMIN_PASSWORD=
+ADMIN_EMAIL=admin@gmail.com
+ADMIN_PASSWORD=Admin@123
 ```
 
-4. Run server
+---
+
+###  Run Server
 
 ```
 npm run dev
 ```
 
-5. Seed admin
+---
+
+### Seed Admin
 
 ```
 npm run seed:admin
+```
+
+---
+
+##  Docker Setup
+
+### Build Image
+
+```
+docker build -t finance-backend .
+```
+
+---
+
+### Run Container
+
+```
+docker run -p 8000:8000 --env-file .env finance-backend
+```
+
+---
+
+### Access API
+
+```
+http://localhost:8000
 ```
 
 ---
@@ -156,50 +244,56 @@ npm run seed:admin
 
 ### Auth
 
-* POST /api/auth/register
-* POST /api/auth/login
-* GET /api/auth/me
+* POST `/api/auth/register`
+* POST `/api/auth/login`
+* GET `/api/auth/me`
+
+---
 
 ### Users (Admin)
 
-* GET /api/users
-* PUT /api/users/:id/role
-* PUT /api/users/:id/status
+* GET `/api/users`
+* PUT `/api/users/:id/role`
+* PUT `/api/users/:id/status`
+
+---
 
 ### Records
 
-* POST /api/records (Admin)
-* GET /api/records
-* GET /api/records/:id
-* PUT /api/records/:id (Admin)
-* DELETE /api/records/:id (Admin)
+* POST `/api/records` (Admin)
+* GET `/api/records`
+* GET `/api/records/:id`
+* PUT `/api/records/:id` (Admin)
+* DELETE `/api/records/:id` (Admin)
+
+---
 
 ### Dashboard
 
-* GET /api/dashboard/summary
-* GET /api/dashboard/category
-* GET /api/dashboard/recent
-* GET /api/dashboard/trends
+* GET `/api/dashboard/summary`
+* GET `/api/dashboard/category`
+* GET `/api/dashboard/recent`
+* GET `/api/dashboard/trends`
 
 ---
 
 ##  Design Decisions
 
-* Role-based access control implemented using middleware
-* Soft delete used for data safety
-* Aggregation pipelines used for dashboard analytics
-* Validation handled using Zod for clean and reusable schemas
+* Role-based access control using middleware
+* Soft delete for data safety
+* Aggregation pipelines for analytics
+* Zod for validation
 
 ---
 
 ##  Notes
 
-* Registration does not allow role selection for security
-* Admin is created via seed script
+* Role cannot be selected during registration
+* Admin is created using seed script
 * All protected routes require authentication
 
 ---
 
 ##  Conclusion
 
-This project demonstrates a structured backend system with proper authentication, authorization, data handling, and scalable design suitable for real-world applications.
+This project demonstrates a scalable backend system with proper authentication, authorization, validation, and data processing suitable for real-world finance applications.
