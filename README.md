@@ -237,6 +237,11 @@ docker run -p 8000:8000 --env-file .env finance-backend
 ```
 http://localhost:8000
 ```
+##  Live Demo
+
+https://finance-backend-uok2.onrender.com
+
+The backend API is deployed on Render. It supports authentication, role-based access control, and dashboard analytics. All endpoints can be tested using Postman.
 
 ---
 
